@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if current_user.is_authenticated %}
+        <div class="row">
+            <h2>{{ current_user.username }} -
+                {% if current_user.is_student() %}
+                    student
+                {% elif current_user.is_teacher() %}
+                    teacher
+                {% endif %}
+            </h2>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <table class="table table-hover">
+                    <thead>
+                        <tr style="font-weight: bold;">
+                            <th>Lesson</th>
+                            <th>Teacher</th>
+                            <th>Class</th>
+                            <th>Start</th>
+                            <th>End</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for lesson_instance in lesson_instances %}
+                            {% include '_lesson_instance.html' %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4">
+
+            </div>
+        </div>
+    {% else %}
+        <h1>Hello, this a title page for this website</h1>
+    {% endif %}
+{% endblock %}

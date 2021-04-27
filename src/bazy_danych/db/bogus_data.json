@@ -1,0 +1,49 @@
+{
+    "students": [
+        {
+            "id": 1,
+            "name": "Foo"
+        },
+        {
+            "id": 2,
+            "name": "Bar"
+        }
+    ],
+    "teachers": [
+        {
+            "id": 1,
+            "name": "dr Foo"
+        }
+    ],
+    "user_accounts": [
+        {
+            "id": 1,
+            "username": "foo",
+            "password": "foo",
+            "student_id": 1
+        },
+        {
+            "id": 2,
+            "username": "drfoo",
+            "password": "drfoo",
+            "teacher_id": 1
+        }
+    ],
+    "lesson": [
+        {
+            "id": 1,
+            "name": "Język Polski 3A"
+        },
+        {
+            "id": 2,
+            "name": "Matematyka 2B"
+        }
+    ],
+    "lesson_instance": [
+        {
+            "id": 1,
+            "lesson_id": 1,
+            "teacher_id": 1
+        }
+    ]
+}
