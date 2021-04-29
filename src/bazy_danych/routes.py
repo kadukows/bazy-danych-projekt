@@ -2,6 +2,8 @@ from flask import Flask, flash, render_template, url_for, redirect
 from flask_login import login_user, login_required, logout_user, current_user
 from werkzeug.security import check_password_hash
 
+from bazy_danych.db.helpers import get_lesson_instances_for_teacher_id
+
 from .forms import LoginForm
 from .db import get_db, get_lesson_instances_for_student_id
 from .auth import BogusUser
@@ -12,10 +14,13 @@ def init_app(app: Flask):
     def index():
         cursor = get_db().cursor()
 
-        if current_user.is_authenticated and current_user.is_student():
-            lesson_instances = get_lesson_instances_for_student_id(current_user.student_id)
-            return render_template('index.html', lesson_instances=lesson_instances)
-
+        if current_user.is_authenticated:
+            if current_user.is_student():
+                lesson_instances = get_lesson_instances_for_student_id(current_user.student_id)
+                return render_template('index.html', lesson_instances=lesson_instances)
+            elif current_user.is_teacher():
+                lesson_instances = get_lesson_instances_for_teacher_id(current_user.teacher_id)
+                return render_template('index.html', lesson_instances=lesson_instances)
 
         return render_template('index.html')
 

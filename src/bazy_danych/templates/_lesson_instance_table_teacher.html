@@ -1,0 +1,15 @@
+<table class="table table-hover">
+    <thead>
+        <tr style="font-weight: bold;">
+            <th>Lesson</th>
+            <th>Class</th>
+            <th>Start</th>
+            <th>End</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for lesson_instance in lesson_instances %}
+            {% include '_lesson_instance_teacher.html' %}
+        {% endfor %}
+    </tbody>
+</table>

@@ -13,22 +13,11 @@
         </div>
         <div class="row">
             <div class="col-md-8">
-                <table class="table table-hover">
-                    <thead>
-                        <tr style="font-weight: bold;">
-                            <th>Lesson</th>
-                            <th>Teacher</th>
-                            <th>Class</th>
-                            <th>Start</th>
-                            <th>End</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for lesson_instance in lesson_instances %}
-                            {% include '_lesson_instance.html' %}
-                        {% endfor %}
-                    </tbody>
-                </table>
+                {% if current_user.is_student() %}
+                    {% include '_lesson_instance_table_student.html' %}
+                {% elif current_user.is_teacher() %}
+                    {% include '_lesson_instance_table_teacher.html' %}
+                {% endif %}
             </div>
             <div class="col-md-4">
 
