@@ -1,5 +1,5 @@
 <tr>
-    <td><a href="{{ url_for('lesson', lesson_id=lesson_instance.lesson_id) }}">{{ lesson_instance.lesson_name }}</a></td>
+    <td><a href="{{ url_for('lesson', lesson_instance_id=lesson_instance.id) }}">{{ lesson_instance.lesson_name }}</a></td>
     <td>{{ lesson_instance.class_name }}</td>
     <td>{{ lesson_instance.begin_time }}</td>
     <td>{{ lesson_instance.end_time }} </td>

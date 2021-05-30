@@ -4,8 +4,12 @@
 {% block content %}
 
 <div class="row">
+    <h2>Adding a grade for student: <strong>{{ student.name }}</strong></h2>
     <div class="col-md-8">
         {{ render_form(form) }}
+    </div>
+    <div class="col-md-4">
+        <img class="img-fluid" src="{{ url_for('static', filename='png/034-certificate.png') }}">
     </div>
 </div>
 
