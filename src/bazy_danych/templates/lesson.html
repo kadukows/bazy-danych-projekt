@@ -1,18 +1,63 @@
 {% extends "base.html" %}
+{% from 'bootstrap/form.html' import render_field, render_form %}
+
+{% block scripts %}
+    {{ super() }}
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btn = document.querySelector('#submitButton');
+            btn.onclick = () => {
+                const form = document.querySelector('#myForm');
+                const table_jquery = $("#myTable");
+
+                const selections = table_jquery.bootstrapTable('getSelections');
+
+                const attendance_input = document.querySelector('#attendanceInput');
+                attendance_input.value = selections.map(el => el['id']).join(',');
+
+                form.submit();
+            };
+        });
+
+        function formatName(value, row, index, field) {
+            return `<a href="/edit_student/{{ lesson_id }}/${row['id']}">${value}</a>`;
+        }
+    </script>
+{% endblock %}
 
 {% block content %}
-    <div class="row">
+    {{ render_form(form, id="myForm") }}
+
+    <div class="row my-2">
         <div class="col-md-8">
-            <h2>Student in class</h2>
-            <table class="table table-hover my-2">
+            <h4>Students in class: <strong>{{ lesson_instance.lesson_name }} {{ lesson_instance.class_name }}
+                {{lesson_instance.begin_time.strftime('%m.%d')}} {{lesson_instance.begin_time.strftime('%H:%M')}}-{{lesson_instance.end_time.strftime('%H:%M')}}</strong></h3>
+            <table
+                id="myTable"
+                data-toggle="table"
+                data-click-to-select="true"
+                data-url="{{ url_for('lesson_get', lesson_instance_id=lesson_instance_id) }}"
+                data-classes="table table-hover my-2">
                 <thead>
+                    <tr>
+                        <th data-field="id">#</th>
+                        <th data-field="name" data-formatter="formatName">Name</th>
+                        <th data-field="state" data-checkbox="true" >Attendance</th>
+                    </tr>
                 </thead>
-                <tbody>
-                    {% for student in students %}
-                        {% include "_student.html" %}
-                    {% endfor %}
-                </tbody>
             </table>
+            <div class="row my-2 mx-2">
+                <div class="col-md-6">
+
+                </div>
+                <div class="col-md-6">
+                    {#<input type="submit" form="myForm" class="btn btn-primary btn-block" value="Submit attendance">#}
+                    <button class="btn btn-primary btn-block" id="submitButton">Submit attendance</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <img class="img-fluid" src="{{ url_for('static', filename='png/045-growth.png') }}">
         </div>
     </div>
 {% endblock %}
