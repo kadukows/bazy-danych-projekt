@@ -58,6 +58,7 @@ def init_app(app: Flask):
         form.lesson_instance.data = str(lesson_instance_id)
 
         if form.validate_on_submit():
+            flash("Updated attendance")
             conn = get_db()
             cursor = conn.cursor()
             cursor.execute("""
@@ -107,7 +108,7 @@ def init_app(app: Flask):
             cursor.execute("""
                 INSERT INTO grades (student_id, lesson_id, grade, mycomment)
                 VALUES (:student_id, :lesson_id, :grade, :mycomment)
-            """, student_id=student_id, lesson_id=lesson_id, grade=form.grade.data, mycomment='None')
+            """, student_id=student_id, lesson_id=lesson_id, grade=form.grade.data, mycomment=form.comment.data)
 
             conn.commit()
 
